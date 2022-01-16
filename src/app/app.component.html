@@ -1,3 +1,2 @@
 <app-header (onViewChanged)="onViewChanged($event)"></app-header>
-<app-recipes *ngIf="currentView === 'recipes'"></app-recipes>
-<app-shopping-list *ngIf="currentView === 'shop-list'"></app-shopping-list>
+<router-outlet></router-outlet>
