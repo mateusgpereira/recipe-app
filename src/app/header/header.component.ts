@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component } from "@angular/core";
 
-type views = 'recipes' | 'shop-list'
 @Component({
   selector: 'app-header',
   templateUrl: 'header.component.html',
@@ -8,16 +7,8 @@ type views = 'recipes' | 'shop-list'
 })
 class HeaderComponent {
 
-  selectedView: views
-
-  @Output()
-  onViewChanged = new EventEmitter<views>();
-
-  selectView(selectedView: views) {
-    this.selectedView = selectedView
-    this.onViewChanged.emit(this.selectedView)
-  }
 
 }
 
-export { HeaderComponent, views }
+export { HeaderComponent };
+
