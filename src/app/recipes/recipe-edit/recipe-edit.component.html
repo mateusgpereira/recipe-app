@@ -1,1 +1,48 @@
-<p>recipe-edit works!</p>
+<div class="row">
+  <div class="col-12">
+    <form [formGroup]="recipeEditForm">
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-danger">Cancel</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label" for="name">Name</label>
+            <input type="text" id="name" class="form-control" formControlName="name"/>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label" for="imagePath">Image URL</label>
+            <input type="text" id="imagePath" class="form-control" formControlName="imagePath"/>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <img src="" class="img-responsive"/>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label" for="description">Description</label>
+            <textarea type="text" id="description" class="form-control" rows="6" formControlName="description"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-8">
+          <input type="text" id="ingredientName" class="form-control"/>
+        </div>
+        <div class="col-2">
+          <input type="number" id="ingredientAmount" class="form-control"/>
+        </div>
+        <div class="col-2">
+          <button class="btn btn-danger">X</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
