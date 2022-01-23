@@ -29,6 +29,11 @@ class ShoppingListService {
     this.ingredients.push(...ingredients)
     this.ingredientsChanged.next(this.getIngredients())
   }
+
+  updateIngredient(index: number, ingredient: Ingredient): void {
+    this.ingredients[index] = ingredient
+    this.ingredientsChanged.next(this.getIngredients())
+  }
 }
 
 export default ShoppingListService
