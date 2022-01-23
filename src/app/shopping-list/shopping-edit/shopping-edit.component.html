@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-12">
-    <form (ngSubmit)="onAddIngredient(shopForm)" #shopForm="ngForm">
+    <form (ngSubmit)="onShopFormSubmit(shopForm)" #shopForm="ngForm">
       <div class="row">
         <div class="col-sm-5 form-group">
           <label for="name">Name</label>
@@ -14,8 +14,8 @@
       <div class="row">
         <div class="col-12">
           <button class="btn btn-success" type="submit" [disabled]="!shopForm.valid">{{ editingMode ? 'Update' : 'Add' }}</button>
-          <button class="btn btn-danger" type="button">Delete</button>
-          <button class="btn btn-primary" type="button">Clear</button>
+          <button class="btn btn-danger" type="button" [disabled]="!editingMode" (click)="onDelete()">Delete</button>
+          <button class="btn btn-primary" type="button" (click)="clearShopForm()">Clear</button>
         </div>
       </div>
     </form>

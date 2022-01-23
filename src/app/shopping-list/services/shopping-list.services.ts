@@ -34,6 +34,11 @@ class ShoppingListService {
     this.ingredients[index] = ingredient
     this.ingredientsChanged.next(this.getIngredients())
   }
+
+  removeIngredient(index: number): void {
+    this.ingredients.splice(index, 1)
+    this.ingredientsChanged.next(this.getIngredients())
+  }
 }
 
 export default ShoppingListService
