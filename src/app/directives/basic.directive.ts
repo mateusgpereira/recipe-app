@@ -1,18 +1,19 @@
-import { Directive, ElementRef, HostBinding, HostListener, Input, OnInit, Renderer2 } from "@angular/core";
+import {
+  Directive, ElementRef, HostBinding, HostListener, Input, OnInit, Renderer2
+} from '@angular/core'
 
 @Directive({
   selector: '[basicHighlight]'
 })
 class BasicHighLight implements OnInit {
-
   @Input()
-  defaultColor = 'aqua'
+    defaultColor = 'aqua'
 
   @Input('basicHighlight')
-  highlightColor = 'purple'
+    highlightColor = 'purple'
 
   @HostBinding('style.backgroundColor')
-  backgroundColor: string;
+    backgroundColor: string
 
   constructor(private element: ElementRef, private renderer: Renderer2) {
 
@@ -31,7 +32,6 @@ class BasicHighLight implements OnInit {
   mouseLeave() {
     this.backgroundColor = this.defaultColor
   }
-
 }
 
 export default BasicHighLight

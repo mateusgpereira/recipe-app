@@ -1,10 +1,11 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+  Directive, Input, TemplateRef, ViewContainerRef
+} from '@angular/core'
 
 @Directive({
   selector: '[appUnless]'
 })
 export class UnlessDirective {
-
   @Input()
   set appUnless(condition: boolean) {
     if (!condition) {
@@ -15,5 +16,4 @@ export class UnlessDirective {
   }
 
   constructor(private template: TemplateRef<any>, private viewContainer: ViewContainerRef) { }
-
 }

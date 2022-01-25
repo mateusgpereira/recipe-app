@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'app-header',
@@ -7,8 +7,6 @@ import { Component } from "@angular/core";
 })
 class HeaderComponent {
 
-
 }
 
-export { HeaderComponent };
-
+export { HeaderComponent }
