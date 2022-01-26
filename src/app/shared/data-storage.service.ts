@@ -14,12 +14,12 @@ export class DataStorageService {
   storeRecipes(): void {
     const recipes = this.recipeService.getRecipes()
     this.http
-      .put(`${environment.firebaseUri}/recipes.json`, recipes)
+      .put(`${environment.firebaseUrl}/recipes.json`, recipes)
       .subscribe((res) => console.log(res))
   }
 
   fetchRecipes(): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(`${environment.firebaseUri}/recipes.json`).pipe(
+    return this.http.get<Recipe[]>(`${environment.firebaseUrl}/recipes.json`).pipe(
       map((recipes) => {
         return recipes.map((recipe) => {
           return {

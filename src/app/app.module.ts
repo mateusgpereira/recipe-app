@@ -14,7 +14,9 @@ import ShoppingListService from './shopping-list/services/shopping-list.services
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component'
 import { ShoppingListComponent } from './shopping-list/shopping-list.component'
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component'
-import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component'
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { AuthComponent } from './auth/auth.component';
+import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component'
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
     ShoppingListComponent,
     ShoppingEditComponent,
     RecipeStartComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    AuthComponent,
+    LoadingSpinnerComponent
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   providers: [ShoppingListService],
