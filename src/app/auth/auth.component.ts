@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { NgForm } from '@angular/forms'
-import { AuthService } from './auth.service'
+import { Router } from '@angular/router'
+import { Observable } from 'rxjs'
+import { AuthResponseData, AuthService } from './auth.service'
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent {
   isLoginMode = false
 
   isLoading = false
 
   error: string
 
-  constructor(private authService: AuthService) {}
-
-  ngOnInit(): void {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSwitchMode(): void {
     this.isLoginMode = !this.isLoginMode
@@ -29,20 +29,25 @@ export class AuthComponent implements OnInit {
     const { email, password } = form.value
     this.isLoading = true
 
+    let authResponse: Observable<AuthResponseData>
+
     if (this.isLoginMode) {
-      console.log('login...')
+      authResponse = this.authService.login(email, password)
     } else {
-      this.authService.signUp(email, password).subscribe(
-        (res) => {
-          console.log(res)
-          this.isLoading = false
-        },
-        (errorMessage) => {
-          this.error = errorMessage
-          this.isLoading = false
-        }
-      )
+      authResponse = this.authService.signUp(email, password)
     }
+
+    authResponse.subscribe(
+      (res) => {
+        console.log(res)
+        this.isLoading = false
+        this.router.navigate(['/recipes'])
+      },
+      (errorMessage) => {
+        this.error = errorMessage
+        this.isLoading = false
+      }
+    )
 
     form.reset()
   }
