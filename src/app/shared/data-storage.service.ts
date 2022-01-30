@@ -1,10 +1,10 @@
-import { HttpClient, HttpParams } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { exhaustMap, map, Observable, take, tap } from 'rxjs'
-import RecipeService from '../recipes/services/recipe.service'
+import { map, Observable, tap } from 'rxjs'
 import { environment } from '../../environments/environment'
-import Recipe from '../recipes/recipe.model'
 import { AuthService } from '../auth/auth.service'
+import Recipe from '../recipes/recipe.model'
+import RecipeService from '../recipes/services/recipe.service'
 
 @Injectable({
   providedIn: 'root'
@@ -24,13 +24,7 @@ export class DataStorageService {
   }
 
   fetchRecipes(): Observable<Recipe[]> {
-    return this.authService.user.pipe(
-      take(1),
-      exhaustMap((user) => {
-        return this.http.get<Recipe[]>(`${environment.firebaseUrl}/recipes.json`, {
-          params: new HttpParams().set('auth', user.token)
-        })
-      }),
+    return this.http.get<Recipe[]>(`${environment.firebaseUrl}/recipes.json`).pipe(
       map((recipes) => {
         return recipes.map((recipe) => {
           return {
