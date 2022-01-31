@@ -119,6 +119,9 @@ export class AuthService {
     switch (errorCode) {
       case 'EMAIL_EXISTS':
         return 'This email exists already.'
+      case 'EMAIL_NOT_FOUND':
+      case 'INVALID_PASSWORD':
+        return 'Invalid crendentials.'
       default:
         return 'An unkown error has occurred.'
     }
