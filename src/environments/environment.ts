@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  firebaseUri: 'FIREBASE_URL'
+  firebaseUrl: 'https://ng-demo-55577-default-rtdb.firebaseio.com',
+  authBaseUrl: 'https://identitytoolkit.googleapis.com/v1',
+  apiKey: 'AIzaSyDzkNSiBspTnc64uWATdmFlI0shjHVRfQI'
 }
 
 /*
