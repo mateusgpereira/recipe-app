@@ -1,6 +1,4 @@
-import {
-  Component, OnDestroy, OnInit, ViewChild
-} from '@angular/core'
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { NgForm } from '@angular/forms'
 import { Subscription } from 'rxjs'
 import Ingredient from 'src/app/shared/ingredient.model'
@@ -13,7 +11,7 @@ import ShoppingListService from '../services/shopping-list.services'
 })
 export class ShoppingEditComponent implements OnInit, OnDestroy {
   @ViewChild('shopForm')
-    shopForm: NgForm
+  shopForm: NgForm
 
   startEditingSubscription: Subscription
 
@@ -23,7 +21,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   editingMode = false
 
-  constructor(private shoppingListService: ShoppingListService) { }
+  constructor(private shoppingListService: ShoppingListService) {}
 
   ngOnInit(): void {
     this.startEditingSubscription = this.shoppingListService.startedEditing.subscribe(
@@ -44,10 +42,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   }
 
   onShopFormSubmit(form: NgForm) {
-    const ingredient = new Ingredient(
-      form.value.name,
-      form.value.amount
-    )
+    const ingredient = new Ingredient(form.value.name, form.value.amount)
 
     if (this.editingMode) {
       this.shoppingListService.updateIngredient(this.ingredientEditingIndex, ingredient)

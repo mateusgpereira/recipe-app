@@ -30,7 +30,9 @@ export class AuthComponent implements OnDestroy {
   ) {}
 
   ngOnDestroy(): void {
-    this.alertCloseSubscription.unsubscribe()
+    if (this.alertCloseSubscription) {
+      this.alertCloseSubscription.unsubscribe()
+    }
   }
 
   onSwitchMode(): void {
