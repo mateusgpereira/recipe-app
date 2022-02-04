@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { ShoppingEditComponent } from './shopping-edit/shopping-edit.component'
 import { ShoppingListComponent } from './shopping-list.component'
 
-const routes: Routes = [{ path: 'shop-list', component: ShoppingListComponent }]
+const routes: Routes = [{ path: '', component: ShoppingListComponent }]
 
 const shoppingListComponents = [ShoppingListComponent, ShoppingEditComponent]
 @NgModule({
