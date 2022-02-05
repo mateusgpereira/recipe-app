@@ -4,10 +4,7 @@ import Ingredient from 'src/app/shared/ingredient.model'
 
 @Injectable()
 class ShoppingListService {
-  private ingredients: Ingredient[] = [
-    new Ingredient('apples', 3),
-    new Ingredient('tomatoes', 1)
-  ]
+  private ingredients: Ingredient[]
 
   ingredientsChanged = new Subject<Ingredient[]>()
 
