@@ -7,7 +7,6 @@ import { AppComponent } from './app.component'
 import { AuthInterceptorService } from './auth/auth-interceptor.service'
 import { HeaderComponent } from './header/header.component'
 import { SharedModule } from './shared/shared.module'
-import ShoppingListService from './shopping-list/services/shopping-list.services'
 import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer'
 
 @NgModule({
@@ -19,10 +18,7 @@ import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer
     SharedModule,
     StoreModule.forRoot({ shoppingList: shoppingListReducer })
   ],
-  providers: [
-    ShoppingListService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
-  ],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
