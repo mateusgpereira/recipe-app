@@ -12,7 +12,7 @@ import { AuthResponseData, AuthService } from './auth.service'
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnDestroy {
-  isLoginMode = false
+  isLoginMode = true
 
   isLoading = false
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
-import ShoppingListService from './services/shopping-list.services'
-import { ShoppingListStore } from './types'
+import { StartEdit } from './store/shopping-list.action'
+import { AppState, ShoppingListState } from './types'
 
 @Component({
   selector: 'app-shopping-list',
@@ -10,18 +10,15 @@ import { ShoppingListStore } from './types'
   styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit {
-  ingredients: Observable<ShoppingListStore['shoppingList']>
+  ingredients: Observable<ShoppingListState>
 
-  constructor(
-    private shoppingListService: ShoppingListService,
-    private store: Store<ShoppingListStore>
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.ingredients = this.store.select('shoppingList')
   }
 
   onItemClick(index: number): void {
-    this.shoppingListService.startedEditing.next(index)
+    this.store.dispatch(new StartEdit(index))
   }
 }
