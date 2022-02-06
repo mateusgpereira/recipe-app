@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { Store } from '@ngrx/store'
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs'
+import { catchError, Observable, tap, throwError } from 'rxjs'
 import { environment } from '../../environments/environment'
 import { AppState } from '../store/app.reducer'
 import { Login, Logout } from './store/auth.actions'
@@ -30,8 +30,6 @@ interface UserData {
   providedIn: 'root'
 })
 export class AuthService {
-  user = new BehaviorSubject<User>(null)
-
   private expirationTimer: any
 
   constructor(private http: HttpClient, private router: Router, private store: Store<AppState>) {}
