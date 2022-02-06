@@ -5,7 +5,3 @@ export interface ShoppingListState {
   editedIngredient: Ingredient
   editedIngredientIndex: number
 }
-
-export interface AppState {
-  shoppingList: ShoppingListState
-}

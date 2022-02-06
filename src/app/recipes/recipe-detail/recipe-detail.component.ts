@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { AddIngredients } from 'src/app/shopping-list/store/shopping-list.action'
-import { AppState } from 'src/app/shopping-list/types'
+import { AppState } from 'src/app/store/app.reducer'
 import Recipe from '../recipe.model'
 import RecipeService from '../services/recipe.service'
 
@@ -31,7 +31,6 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   addToShoppingList(): void {
-    console.log(this.recipe.ingredients)
     this.store.dispatch(new AddIngredients(this.recipe.ingredients))
   }
 

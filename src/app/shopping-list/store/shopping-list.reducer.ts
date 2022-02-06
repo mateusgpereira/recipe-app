@@ -37,7 +37,7 @@ const updateIngredientReducer = (
   }
 }
 
-const shoppingListReducer = (
+export const shoppingListReducer = (
   state = initialState,
   action: ShoppingListActions
 ): ShoppingListState => {
@@ -79,5 +79,3 @@ const shoppingListReducer = (
       return state
   }
 }
-
-export { shoppingListReducer }

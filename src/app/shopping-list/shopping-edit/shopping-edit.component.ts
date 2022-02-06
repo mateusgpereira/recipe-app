@@ -3,13 +3,13 @@ import { NgForm } from '@angular/forms'
 import { Store } from '@ngrx/store'
 import { Subscription } from 'rxjs'
 import Ingredient from 'src/app/shared/ingredient.model'
+import { AppState } from 'src/app/store/app.reducer'
 import {
   AddIngredient,
   DeleteIngredient,
   StopEdit,
   UpdateIngredient
 } from '../store/shopping-list.action'
-import { AppState } from '../types'
 
 @Component({
   selector: 'app-shopping-edit',
