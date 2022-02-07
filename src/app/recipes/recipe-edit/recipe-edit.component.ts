@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Params, Router } from '@angular/router'
+import { Store } from '@ngrx/store'
+import Ingredient from 'src/app/shared/ingredient.model'
+import { AppState } from 'src/app/store/app.reducer'
 import RecipeService from '../services/recipe.service'
+import { recipesSelector } from '../store/recipe.selectors'
 
 @Component({
   selector: 'app-recipe-edit',
@@ -18,7 +22,8 @@ export class RecipeEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
@@ -36,32 +41,26 @@ export class RecipeEditComponent implements OnInit {
     const recipeIngredients = new FormArray([])
 
     if (this.editMode) {
-      const recipe = this.recipeService.getRecipeByIndex(this.id)
-      recipeName = recipe.name
-      description = recipe.description
-      imagePath = recipe.imagePath
+      this.store.select(recipesSelector).subscribe((recipes) => {
+        const recipe = recipes[this.id]
+        recipeName = recipe.name
+        description = recipe.description
+        imagePath = recipe.imagePath
 
-      if (recipe.ingredients) {
-        recipe.ingredients.forEach((ingredient) => {
-          recipeIngredients.push(
-            new FormGroup({
-              name: new FormControl(ingredient.name, Validators.required),
-              amount: new FormControl(ingredient.amount, [
-                Validators.required,
-                Validators.pattern(/^[1-9]+[0-9]*$/)
-              ])
-            })
-          )
-        })
-      }
+        if (recipe.ingredients) {
+          recipe.ingredients.forEach((ingredient) => {
+            recipeIngredients.push(this.createFormIngredient(ingredient))
+          })
+        }
+      })
     }
 
-    this.recipeEditForm = new FormGroup({
-      name: new FormControl(recipeName, Validators.required),
-      description: new FormControl(description, Validators.required),
-      imagePath: new FormControl(imagePath, Validators.required),
-      ingredients: recipeIngredients
-    })
+    this.recipeEditForm = this.createRecipeEditForm(
+      recipeName,
+      description,
+      imagePath,
+      recipeIngredients
+    )
   }
 
   get controls() {
@@ -96,5 +95,29 @@ export class RecipeEditComponent implements OnInit {
 
   getRecipeFormIngredients(): FormArray {
     return <FormArray>this.recipeEditForm.get('ingredients')
+  }
+
+  private createFormIngredient(ingredient: Ingredient): FormGroup {
+    return new FormGroup({
+      name: new FormControl(ingredient.name, Validators.required),
+      amount: new FormControl(ingredient.amount, [
+        Validators.required,
+        Validators.pattern(/^[1-9]+[0-9]*$/)
+      ])
+    })
+  }
+
+  private createRecipeEditForm(
+    name: string,
+    description: string,
+    imagePath: string,
+    ingredients: FormArray
+  ): FormGroup {
+    return new FormGroup({
+      name: new FormControl(name, Validators.required),
+      description: new FormControl(description, Validators.required),
+      imagePath: new FormControl(imagePath, Validators.required),
+      ingredients
+    })
   }
 }

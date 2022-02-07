@@ -15,10 +15,14 @@ interface AuthRequestData {
   password: string
 }
 
+interface AuthSuccess {
+  user: User
+  redirect: boolean
+}
 export class Login implements Action {
   readonly type = LOGIN
 
-  constructor(public payload: User) {}
+  constructor(public payload: AuthSuccess) {}
 }
 
 export class Logout implements Action {

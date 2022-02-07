@@ -69,8 +69,10 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   authRedirect = this.actions$.pipe(
     ofType(LOGIN),
-    tap(() => {
-      this.router.navigate(['/'])
+    tap((authLoginAction: Login) => {
+      if (authLoginAction.payload.redirect) {
+        this.router.navigate(['/'])
+      }
     })
   )
 
@@ -101,7 +103,7 @@ export class AuthEffects {
     tap(() => {
       this.authService.clearLogoutTimer()
       localStorage.removeItem('userData')
-      this.router.navigate(['/auth'])
+      this.router.navigate([])
     })
   )
 
@@ -120,7 +122,7 @@ export class AuthEffects {
       if (user.token) {
         const expiresIn = tokenExpirationDate.getTime() - Date.now()
         this.authService.setLogoutTimer(expiresIn)
-        return new Login(user)
+        return new Login({ user, redirect: false })
       }
 
       return { type: 'NONE' }
@@ -138,6 +140,6 @@ export class AuthEffects {
     const user = createUser(resData)
     localStorage.setItem('userData', JSON.stringify(user))
     this.authService.setLogoutTimer(+resData.expiresIn * 1000)
-    return new Login(user)
+    return new Login({ user, redirect: true })
   }
 }
