@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { Store } from '@ngrx/store'
+import { Subscription } from 'rxjs'
 import Ingredient from 'src/app/shared/ingredient.model'
 import { AppState } from 'src/app/store/app.reducer'
-import RecipeService from '../services/recipe.service'
+import { AddRecipe, UpdateRecipe } from '../store/recipe.actions'
 import { recipesSelector } from '../store/recipe.selectors'
 
 @Component({
@@ -12,16 +13,17 @@ import { recipesSelector } from '../store/recipe.selectors'
   templateUrl: './recipe-edit.component.html',
   styleUrls: ['./recipe-edit.component.css']
 })
-export class RecipeEditComponent implements OnInit {
+export class RecipeEditComponent implements OnInit, OnDestroy {
   id: number
 
   editMode: boolean
 
   recipeEditForm: FormGroup
 
+  storeSubscription: Subscription
+
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeService,
     private router: Router,
     private store: Store<AppState>
   ) {}
@@ -34,6 +36,12 @@ export class RecipeEditComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(): void {
+    if (this.storeSubscription) {
+      this.storeSubscription.unsubscribe()
+    }
+  }
+
   private initForm(): void {
     let recipeName = ''
     let description = ''
@@ -41,7 +49,7 @@ export class RecipeEditComponent implements OnInit {
     const recipeIngredients = new FormArray([])
 
     if (this.editMode) {
-      this.store.select(recipesSelector).subscribe((recipes) => {
+      this.storeSubscription = this.store.select(recipesSelector).subscribe((recipes) => {
         const recipe = recipes[this.id]
         recipeName = recipe.name
         description = recipe.description
@@ -78,9 +86,9 @@ export class RecipeEditComponent implements OnInit {
 
   onSubmit(): void {
     if (this.editMode) {
-      this.recipeService.updateRecipe(this.id, this.recipeEditForm.value)
+      this.store.dispatch(new UpdateRecipe({ index: this.id, recipe: this.recipeEditForm.value }))
     } else {
-      this.recipeService.addRecipe(this.recipeEditForm.value)
+      this.store.dispatch(new AddRecipe(this.recipeEditForm.value))
     }
     this.router.navigate(['../'], { relativeTo: this.route })
   }

@@ -5,7 +5,7 @@ import { map, switchMap } from 'rxjs'
 import { AddIngredients } from 'src/app/shopping-list/store/shopping-list.action'
 import { AppState } from 'src/app/store/app.reducer'
 import Recipe from '../recipe.model'
-import RecipeService from '../services/recipe.service'
+import { DeleteRecipe } from '../store/recipe.actions'
 import { recipesSelector } from '../store/recipe.selectors'
 
 @Component({
@@ -20,7 +20,6 @@ export class RecipeDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeService,
     private router: Router,
     private store: Store<AppState>
   ) {}
@@ -49,7 +48,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onDelete(): void {
-    this.recipeService.deleteRecipe(this.id)
+    this.store.dispatch(new DeleteRecipe(this.id))
     this.router.navigate(['../'], { relativeTo: this.route })
   }
 }
